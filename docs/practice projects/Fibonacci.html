@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fibonacci Series</title>
+</head>
+<body style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center;">
+
+<h2>Fibonacci Series</h2>
+
+<button onclick="fibonacci()">Show Series</button>
+<p id="output"></p>
+
+<script>
+function fibonacci() {
+    let n = parseInt(prompt("Enter number of terms: "));
+    let a = 0, b = 1;
+    let series = "";
+
+    for (let i = 1; i <= n; i++) {
+        series += a + " ";
+        let next = a + b;
+        a = b;
+        b = next;
+    }
+
+    document.getElementById("output").innerHTML = "Series: " + series;
+}
+</script>
+
+</body>
+</html>
