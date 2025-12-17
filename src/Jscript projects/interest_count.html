@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple & Compound Interest</title>
+</head>
+<body style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center;">
+
+<h2>Simple & Compound Interest Calculator</h2>
+
+<button onclick="calculateInterest()">Calculate</button>
+<p id="output"></p>
+
+<script>
+function calculateInterest() {
+    let p = parseFloat(prompt("Enter Principal: "));
+    let r = parseFloat(prompt("Enter Rate of Interest: "));
+    let t = parseFloat(prompt("Enter Time (years): "));
+
+    let si = (p * r * t) / 100;
+    let ci = p * (Math.pow((1 + r/100), t)) - p;
+
+    document.getElementById("output").innerHTML =
+        "Simple Interest: " + si.toFixed(2) + "<br>" +
+        "Compound Interest: " + ci.toFixed(2);
+}
+</script>
+
+</body>
+</html>
