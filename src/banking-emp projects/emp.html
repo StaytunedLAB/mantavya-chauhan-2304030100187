@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Attendance System</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #020617, #0f172a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.panel {
+    background: #ffffff;
+    width: 420px;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #020617;
+}
+
+.status {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.time-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.time-box div {
+    background: #f1f5f9;
+    padding: 12px;
+    border-radius: 8px;
+    width: 48%;
+    text-align: center;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.checkin {
+    background: #16a34a;
+    color: white;
+}
+
+.checkout {
+    background: #dc2626;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.output {
+    margin-top: 20px;
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+</style>
+</head>
+<body>
+
+<div class="panel">
+    <h2>Employee Attendance</h2>
+
+    <div class="status" id="status">Status: Not Checked In</div>
+
+    <div class="time-box">
+        <div>
+            <strong>Check-In</strong><br>
+            <span id="checkinTime">--:--</span>
+        </div>
+        <div>
+            <strong>Check-Out</strong><br>
+            <span id="checkoutTime">--:--</span>
+        </div>
+    </div>
+
+    <button class="checkin" onclick="checkIn()">Check In</button>
+    <button class="checkout" onclick="checkOut()">Check Out</button>
+
+    <div class="output" id="result">No data yet</div>
+    <div>click on check in for enter </div>
+</div>
+
+<script>
+let checkInTime = null;
+
+function checkIn() {
+    try {
+        if (checkInTime !== null) {
+            throw new Error("Already checked in");
+        }
+
+        checkInTime = new Date();
+        document.getElementById("checkinTime").innerText =
+            checkInTime.toLocaleTimeString();
+
+        document.getElementById("status").innerText =
+            "Status: Working";
+
+        document.getElementById("result").innerText =
+            "Checked in successfully";
+    }
+    catch (err) {
+        document.getElementById("result").innerText =
+            "Error: " + err.message;
+    }
+}
+
+function checkOut() {
+    try {
+        if (checkInTime === null) {
+            throw new Error("You must check in first");
+        }
+
+        let checkOutTime = new Date();
+        document.getElementById("checkoutTime").innerText =
+            checkOutTime.toLocaleTimeString();
+
+        let workedMinutes =
+            Math.floor((checkOutTime - checkInTime) / 60000);
+
+        document.getElementById("status").innerText =
+            "Status: Checked Out";
+
+        document.getElementById("result").innerText =
+            `Worked ${workedMinutes} minutes today`;
+
+        checkInTime = null;
+    }
+    catch (err) {
+        document.getElementById("result").innerText =
+            "Error: " + err.message;
+    }
+}
+</script>
+
+</body>
+</html>
